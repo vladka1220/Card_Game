@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import '../my_home_page/my_home_page.dart';
-import 'menu_page/menu_page.dart';
-//import 'lib/menu_page.dart';
+import '../menu_page/menu_page.dart';
 
 
 class StartPage extends StatelessWidget {
