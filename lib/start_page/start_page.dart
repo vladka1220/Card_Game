@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import '../my_home_page/my_home_page.dart';
+import 'menu_page/menu_page.dart';
 //import 'lib/menu_page.dart';
 
 
@@ -35,12 +37,20 @@ class StartPage extends StatelessWidget {
               onPress: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const MyHomePage (title: 'Play Card')),
+                  MaterialPageRoute(builder: (context) => const MenuPage(title: 'Play Card')),
                 );
               },
               text: 'Меню',
             ),
-            const SizedBox(height: 50), // Пустой блок
+            ElevatedButton(
+            onPressed: () {
+              // Add action for the "Выход" button
+              Navigator.pop(context); // Close the menu
+              // Add code here to exit the app, such as logging out, clearing tokens, or performing other necessary actions.
+            },
+            child: const Text('Выход'),
+            ),
+  
           ],
         ),
       ),
