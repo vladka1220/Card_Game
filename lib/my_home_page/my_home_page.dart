@@ -34,39 +34,39 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  void playMusic() async {
-    try {
-      String audioPath = 'assets/audio/my_audio.mp3';
-      int result = await audioPlayer.play(audioPath, isLocal: true);
-      print("playMusic: Result = $result"); // Логирование результата
+  // void playMusic() async {
+  //   try {
+  //     String audioPath = 'assets/audio/my_audio.mp3';
+  //     int result = await audioPlayer.play(audioPath, isLocal: true);
+  //     print("playMusic: Result = $result"); // Логирование результата
 
-      if (result == 1) {
-        setState(() {
-          isPlaying = true;
-          print("Music started playing"); // Логирование начала воспроизведения
-        });
-      }
-    } catch (e) {
-      print("Error in playMusic: $e"); // Логирование ошибки
-    }
-  }
+  //     if (result == 1) {
+  //       setState(() {
+  //         isPlaying = true;
+  //         print("Music started playing"); // Логирование начала воспроизведения
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print("Error in playMusic: $e"); // Логирование ошибки
+  //   }
+  // }
 
-  void toggleMusic() async {
-    try {
-      if (isPlaying) {
-        await audioPlayer.pause();
-        print("Music paused"); // Логирование паузы
-      } else {
-        int result = await audioPlayer.play('assets/audio/my_audio.mp3', isLocal: true);
-        print("Music resumed/started: Result = $result"); // Логирование возобновления/начала воспроизведения
-      }
-      setState(() {
-        isPlaying = !isPlaying;
-      });
-    } catch (e) {
-      print("Error in toggleMusic: $e"); // Логирование ошибки
-    }
-  }
+  // void toggleMusic() async {
+  //   try {
+  //     if (isPlaying) {
+  //       await audioPlayer.pause();
+  //       print("Music paused"); // Логирование паузы
+  //     } else {
+  //       int result = await audioPlayer.play('assets/audio/my_audio.mp3', isLocal: true);
+  //       print("Music resumed/started: Result = $result"); // Логирование возобновления/начала воспроизведения
+  //     }
+  //     setState(() {
+  //       isPlaying = !isPlaying;
+  //     });
+  //   } catch (e) {
+  //     print("Error in toggleMusic: $e"); // Логирование ошибки
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -86,12 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
           Navigator.pop(context); // Возвращает пользователя на StartPage
         },
       ),
-        actions: [
-          IconButton(
-            icon: Icon(isPlaying ? Icons.volume_off : Icons.volume_up),
-            onPressed: toggleMusic,
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(isPlaying ? Icons.volume_off : Icons.volume_up),
+        //     onPressed: toggleMusic,
+        //   ),
+        // ],
       ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
