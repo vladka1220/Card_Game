@@ -1,25 +1,33 @@
+import 'package:card_game_adam/Customs/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_button/flutter_animated_button.dart';
 import '../my_home_page/my_home_page.dart';
 import '../menu_page/menu_page.dart';
+import '../Customs/RotatingGearIcon.dart';
+// ignore: unused_import
+import '../Customs/PulsatingVolumeIcon.dart';
+
+
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Определение ширины экрана
+    // Получение ширины экрана для динамического отображения элементов
     final screenWidth = MediaQuery.of(context).size.width;
-    final sidePadding = screenWidth * 0.04; // 20% от ширины экрана
+    final sidePadding = screenWidth * 0.045; // 20% от ширины экрана
+  
 
     return Scaffold(
+      extendBodyBehindAppBar: true, // Расширяем тело за AppBar
       appBar: AppBar(
-        title: Text('Play Cart for Adam'),
-        backgroundColor: Color.fromARGB(0, 72, 158, 224), // Цвет фона AppBar
-        leading: Padding(
+        //title: const Text('Play Card for Adam'),
+        backgroundColor: Colors.transparent, // Прозрачный фон AppBar
+        leading: 
+        Padding(
           padding: EdgeInsets.only(left: sidePadding),
           child: IconButton(
-            icon: Icon(Icons.settings), // Иконка шестеренки для меню
+            icon: RotatingGearIcon(), // Иконка шестеренки для меню
             onPressed: () {
               Navigator.push(
                 context,
@@ -28,91 +36,53 @@ class StartPage extends StatelessWidget {
             },
           ),
         ),
+
+//PulsatingVolumeIcon(),
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: sidePadding),
             child: IconButton(
-              icon: Icon(Icons.volume_up), // Иконка громкости
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Регулировка громкости'),
-                      content: Slider(
-                        value: 0.5, // Значение по умолчанию для ползунка
-                        min: 0.0,
-                        max: 1.0,
-                        onChanged: (newValue) {
-                          // Обновите значение громкости
-                        },
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('OK'),
-                          onPressed: () {
-                            Navigator.of(context).pop(); // Закрыть диалоговое окно
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
+              icon: PulsatingVolumeIcon(), // Большая иконка громкости черного цвета
+              onPressed: () { 
+                if (AudioManager.isPlaying) {
+                  AudioManager.pauseBackgroundMusic();
+                } else {
+                  AudioManager.resumeBackgroundMusic();
+                }
               },
             ),
           ),
         ],
       ),
       body: Stack(
-        children: <Widget>[
+        children: <Widget>[ 
           // Фоновое изображение
           Positioned.fill(
-            child: Image.asset(
-              'assets/png/main.png', // Путь к вашему фоновому изображению
-              fit: BoxFit.cover,
-            ),
-          ),
-          // Оверлей и кнопки
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Card Game',
-                  style: TextStyle(
-                    fontSize: 48, // Размер текста
-                    color: Colors.white, // Цвет текста
-                    shadows: [
-                      Shadow(
-                        blurRadius: 4.0,
-                        color: Colors.black.withOpacity(0.5),
-                        offset: Offset(2.0, 2.0),
-                      ),
-                    ],
+            child: Image.asset('assets/png/main.png', fit: BoxFit.cover,),
+          ),  
+          
+          Align(// Размещение кнопки в нижней части экрана
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.09),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Play Card')),
+                  );
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.5, // ширина - 15% от ширины экрана
+                  height: MediaQuery.of(context).size.width * 0.20, // высота - 15% от ширины экрана
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/png/play.png'),
+                      fit: BoxFit.contain, // Изображение сохраняет свои пропорции
+                    ),
                   ),
                 ),
-                SizedBox(height: 550), // Отступ между элементами
-                AnimatedButton(
-                  onPress: () {
-                     Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Play Card')),
-                );
-                    // Вставьте здесь действие для кнопки 'Играть'
-                  },
-                  text: 'Играть',
-                  isReverse: true,
-                  selectedTextColor: Colors.black,
-                  transitionType: TransitionType.LEFT_TO_RIGHT,
-                  textStyle: TextStyle(fontSize: 22, color: const Color.fromARGB(255, 120, 51, 51), fontWeight: FontWeight.bold),
-                  backgroundColor: Colors.green,
-                  borderColor: Colors.white,
-                  borderRadius: 50,
-                  borderWidth: 2,
-                ),
-                SizedBox(height: 50), // Отступ под кнопкой 'Играть'
-                // Добавьте здесь другие кнопки или виджеты, если необходимо
-              ],
+              ),
             ),
           ),
         ],
