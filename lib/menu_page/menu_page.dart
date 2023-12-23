@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 
-
 class MenuPage extends StatelessWidget {
+  const MenuPage({super.key, required String title});
 
-  const MenuPage({Key? key, required String title}) : super(key: key);
-
-    Future<void> _showAppInfoDialog(BuildContext context) async {
-    final BuildContext dialogContext = context; // Сохраняем BuildContext в переменной
+  Future<void> _showAppInfoDialog(BuildContext context) async {
+    final BuildContext dialogContext =
+        context; // Сохраняем BuildContext в переменной
 
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     showAboutDialog(
-      context: dialogContext, 
-      applicationIcon: Icon(Icons.info), // Иконка приложения
+      context: dialogContext,
+      applicationIcon: const Icon(Icons.info), // Иконка приложения
       applicationName: packageInfo.appName, // Название приложения
       applicationVersion: packageInfo.version, // Версия приложения
-      applicationLegalese: 'Ваше описание или информация о приложении.', // Описание приложения
+      applicationLegalese:
+          'Ваше описание или информация о приложении.', // Описание приложения
     );
   }
 
@@ -55,4 +55,3 @@ class MenuPage extends StatelessWidget {
     );
   }
 }
-

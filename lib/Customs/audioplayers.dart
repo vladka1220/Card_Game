@@ -1,3 +1,4 @@
+
 import 'package:audioplayers/audioplayers.dart';
 
 class AudioManager {
@@ -6,7 +7,8 @@ class AudioManager {
 
   static Future<void> playBackgroundMusic() async {
     if (!_isPlaying) {
-      await _audioPlayer.play(AssetSource("../assets/audio/my_audio.mp3")); // Здесь укажите путь к вашему аудиофайлу
+      _audioPlayer.setReleaseMode(ReleaseMode.loop); // Установка режима повторения
+      await _audioPlayer.play(AssetSource("../assets/audio/my_audio.mp3"));
       _isPlaying = true;
     }
   }
@@ -15,13 +17,6 @@ class AudioManager {
     if (_isPlaying) {
       _audioPlayer.pause();
       _isPlaying = false;
-    }
-  }
-
-  static void resumeBackgroundMusic() {
-    if (!_isPlaying) {
-      _audioPlayer.resume();
-      _isPlaying = true;
     }
   }
 

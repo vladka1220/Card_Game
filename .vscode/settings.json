@@ -1,4 +1,7 @@
 {
-   "editor.bracketPairColorization.enabled": true,
-   "editor.guides.bracketPairs":"active"
+   "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+   },
+   "editor.formatOnSave": true,
 }

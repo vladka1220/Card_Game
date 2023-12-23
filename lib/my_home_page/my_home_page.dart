@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -14,11 +14,11 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isPlaying = false;
 
   final List<Map<String, dynamic>> categories = [
-    {'title': 'Домашние приборы', 'image': 'assets/png/4.png'},
+    {'title': 'Домашние приборы', 'image': 'assets/png/home_electronic.png'},
     {'title': 'Цвета', 'image': 'assets/png/cor.png'},
-    {'title': 'Машины', 'image': 'assets/png/car.png'},
-    {'title': 'Дикие животные', 'image': 'assets/png/5.png'},
-    {'title': 'Музыкальные инструменты', 'image': 'assets/png/4.png'},
+    {'title': 'Машины', 'image': 'assets/png/car0.png'},
+    {'title': 'Дикие животные', 'image': 'assets/png/wild.png'},
+    {'title': 'Музыкальные инструменты', 'image': 'assets/png/violin.jpg'},
     {'title': 'Природа', 'image': 'assets/png/2.png'},
     {'title': 'Домашние животные', 'image': 'assets/png/3.png'},
     {'title': 'Птицы', 'image': 'assets/png/1.png'},
@@ -34,87 +34,54 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  // void playMusic() async {
-  //   try {
-  //     String audioPath = 'assets/audio/my_audio.mp3';
-  //     int result = await audioPlayer.play(audioPath, isLocal: true);
-  //     print("playMusic: Result = $result"); // Логирование результата
-
-  //     if (result == 1) {
-  //       setState(() {
-  //         isPlaying = true;
-  //         print("Music started playing"); // Логирование начала воспроизведения
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print("Error in playMusic: $e"); // Логирование ошибки
-  //   }
-  // }
-
-  // void toggleMusic() async {
-  //   try {
-  //     if (isPlaying) {
-  //       await audioPlayer.pause();
-  //       print("Music paused"); // Логирование паузы
-  //     } else {
-  //       int result = await audioPlayer.play('assets/audio/my_audio.mp3', isLocal: true);
-  //       print("Music resumed/started: Result = $result"); // Логирование возобновления/начала воспроизведения
-  //     }
-  //     setState(() {
-  //       isPlaying = !isPlaying;
-  //     });
-  //   } catch (e) {
-  //     print("Error in toggleMusic: $e"); // Логирование ошибки
-  //   }
-  // }
-
-  @override
-  void dispose() {
-    audioPlayer.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true, // Расширяем тело за AppBar
       appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.transparent, // Прозрачный фон AppBar
         leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.pop(context); // Возвращает пользователя на StartPage
-        },
-      ),
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(isPlaying ? Icons.volume_off : Icons.volume_up),
-        //     onPressed: toggleMusic,
-        //   ),
-        // ],
-      ),
-      body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // 2 столбца
-          childAspectRatio: 0.9, // Аспект соотношения для карточек
-          crossAxisSpacing: 10, // Расстояние по горизонтали
-          mainAxisSpacing: 40, // Расстояние по вертикали
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context); // Возвращает пользователя на StartPage
+          },
         ),
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () => onCategoryTap(categories[index]['title']),
-            child: Card(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset(categories[index]['image'], fit: BoxFit.cover),
-                  Text(categories[index]['title']),
-                ],
-              ),
+      ),
+      body: Stack(
+        children: <Widget>[
+          // Фоновое изображение
+          Positioned.fill(
+            child: Image.asset(
+              'assets/png/fone.png', // Укажите здесь путь к вашему фоновому изображению
+              fit: BoxFit.cover, // Заполнение всего доступного пространства
             ),
-          );
-        },
+          ),
+          // Контент
+          GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // 2 столбца
+              childAspectRatio: 0.9, // Аспект соотношения для карточек
+              crossAxisSpacing: 10, // Расстояние по горизонтали
+              mainAxisSpacing: 60, // Расстояние по вертикали
+            ),
+            itemCount: categories.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () => onCategoryTap(categories[index]['title']),
+                child: Card(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(categories[index]['image'],
+                          fit: BoxFit.cover),
+                      Text(categories[index]['title']),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

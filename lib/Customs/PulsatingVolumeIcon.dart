@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'audioplayers.dart';
 
-class PulsatingVolumeIcon extends StatefulWidget { //Пульсация
+class PulsatingVolumeIcon extends StatefulWidget {
+  //Пульсация
   const PulsatingVolumeIcon({super.key});
 
   @override
   _PulsatingVolumeIconState createState() => _PulsatingVolumeIconState();
 }
 
-class _PulsatingVolumeIconState extends State<PulsatingVolumeIcon> with SingleTickerProviderStateMixin {//Пульсация
+class _PulsatingVolumeIconState extends State<PulsatingVolumeIcon>
+    with SingleTickerProviderStateMixin {
+  //Пульсация
   late AnimationController _animationController;
   late Animation<double> _animation;
 
@@ -34,7 +37,7 @@ class _PulsatingVolumeIconState extends State<PulsatingVolumeIcon> with SingleTi
     super.dispose();
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return ScaleTransition(
       scale: _animation,
